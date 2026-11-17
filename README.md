@@ -1,4 +1,4 @@
-# Mary Adepoju — portfolio website
+# Mary A. — portfolio website
 
 A static multi-page site. Every page is a real HTML file with its own URL, so
 browser back/forward, direct links and search-engine indexing all work without

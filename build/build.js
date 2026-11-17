@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-   Static site generator — Mary Adepoju portfolio
+   Static site generator — Mary A. portfolio
    Edit content/site.json, then run:  node build/build.js
    Every project in site.json gets a case study page automatically.
    ------------------------------------------------------------ */
@@ -40,7 +40,7 @@ const NAV = [
 function resumeBtn(label) {
   const href = P.resume || P.resumeExternal;
   if (!href) return '';
-  const name = (P.name || 'resume').replace(/\s+/g, '-') + '-Resume.pdf';
+  const name = (P.name || 'resume').replace(/\./g, '').trim().replace(/\s+/g, '-') + '-Resume.pdf';
   return `<a class="btn btn--gold" href="${attr(href)}" download="${attr(name)}">${esc(label)} <span class="arr arr--down" aria-hidden="true">&#8595;</span></a>`;
 }
 
@@ -208,8 +208,8 @@ function header(active, b) {
   return `<header class="site-header">
   <div class="wrap">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="${b}index.html" aria-label="Mary Adepoju — home">
-        <b>Mary Adepoju</b><span>AI Video Creator</span>
+      <a class="brand" href="${b}index.html" aria-label="${esc(P.name)} — home">
+        <b>${esc(P.name)}</b><span>AI Video Creator</span>
       </a>
       <ul class="nav-links" id="nav-links">
         ${items}
@@ -247,7 +247,7 @@ function footer(b) {
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <h3>Mary Adepoju<span style="color:var(--gold)">.</span></h3>
+        <h3>${esc(P.name)}<span style="color:var(--gold)">.</span></h3>
         <p>${esc(P.title)}${P.location ? '. ' + esc(P.location) : ''} &middot; Creative work, worldwide.</p>
       </div>
       <div class="footer-col">
@@ -271,7 +271,7 @@ function footer(b) {
     </div>
     ${socialRow()}
     <div class="footer-base">
-      <span>&copy; <span data-year>2026</span> Mary Adepoju. All rights reserved.</span>
+      <span>&copy; <span data-year>2026</span> ${esc(P.name)} All rights reserved.</span>
       <span>${esc(P.title)}</span>
     </div>
   </div>
@@ -286,7 +286,7 @@ function page({ file, title, description, active, body, b = '' }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${attr(description)}">
-<meta name="author" content="Mary Adepoju">
+<meta name="author" content="${attr(P.name)}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${attr(title)}">
 <meta property="og:description" content="${attr(description)}">
@@ -472,7 +472,7 @@ const home = `
       </div>
       <div class="hero-portrait reveal in">
         <div class="frame">
-          <img src="${attr(P.headshot)}" alt="Mary Adepoju, AI Video Creator and Video Editor" width="880" height="756" fetchpriority="high">
+          <img src="${attr(P.headshot)}" alt="${attr(P.name)}, AI Video Creator and Video Editor" width="880" height="756" fetchpriority="high">
           <p class="tag">Creator / Storyteller / Editor</p>
         </div>
       </div>
@@ -577,7 +577,7 @@ const home = `
       <div class="reveal">
         <div class="hero-portrait" style="max-width:380px;margin-inline:auto">
           <div class="frame">
-            <img src="${attr(P.headshot)}" alt="Mary Adepoju, AI Video Creator and Video Editor" width="880" height="756" loading="lazy">
+            <img src="${attr(P.headshot)}" alt="${attr(P.name)}, AI Video Creator and Video Editor" width="880" height="756" loading="lazy">
             <p class="tag">A human vision. An AI-powered toolkit.</p>
           </div>
         </div>
@@ -621,7 +621,7 @@ ${ctaBand('', 'Your next story starts here.', 'Tell me what you are building and
 
 page({
   file: 'index.html', active: 'home',
-  title: 'AI Video Creator & Video Editor | Mary Adepoju',
+  title: `AI Video Creator & Video Editor | ${D.profile.name}`,
   description: 'Scroll-stopping AI videos, compelling visuals and creative storytelling for brands — AI video ads, UGC, explainers and professional video editing.',
   body: home
 });
@@ -642,7 +642,7 @@ ${pageHead({
       <div class="reveal">
         <div class="hero-portrait" style="max-width:400px">
           <div class="frame">
-            <img src="${attr(P.headshot)}" alt="Mary Adepoju, AI Video Creator and Video Editor" width="880" height="756">
+            <img src="${attr(P.headshot)}" alt="${attr(P.name)}, AI Video Creator and Video Editor" width="880" height="756">
             <p class="tag">Creator / Storyteller / Editor</p>
           </div>
         </div>
@@ -740,7 +740,7 @@ ${ctaBand('', 'Let&rsquo;s bring your idea to life.')}
 
 page({
   file: 'about.html', active: 'about',
-  title: 'About Mary Adepoju | AI Video Creator & Video Editor',
+  title: `About ${D.profile.name} | AI Video Creator & Video Editor`,
   description: 'AI Video Creator and Video Editor with 5 years of experience in AI video production, scriptwriting and professional editing. Experience, skills, tools and industries.',
   body: about
 });
@@ -786,7 +786,7 @@ ${ctaBand('', 'Want something like this for your brand?')}
 
 page({
   file: 'portfolio.html', active: 'portfolio',
-  title: 'Portfolio & AI Video Projects | Mary Adepoju',
+  title: `Portfolio & AI Video Projects | ${D.profile.name}`,
   description: 'AI video projects and case studies — AI video ads, UGC, avatar videos, explainers, product commercials, social media content and video editing.',
   body: portfolio
 });
@@ -912,7 +912,7 @@ ${ctaBand('../', 'Want a project like this?', 'Tell me about your product, audie
 
   page({
     file: path.join('work', `${pr.slug}.html`), active: 'portfolio', b: '../',
-    title: `${pr.name} — Case Study | Mary Adepoju`,
+    title: `${pr.name} — Case Study | ${D.profile.name}`,
     description: `${pr.short} Case study covering the objective, challenge, creative solution, tools and deliverables.`,
     body
   });
@@ -970,7 +970,7 @@ ${ctaBand('', 'Not sure which service fits?')}
 
 page({
   file: 'services.html', active: 'services',
-  title: 'Services | AI Video Production & Editing | Mary Adepoju',
+  title: `Services | AI Video Production & Editing | ${D.profile.name}`,
   description: 'AI video advertisements, UGC videos, video editing, explainers, avatar videos, product commercials, social content, scriptwriting and AI video automation.',
   body: services
 });
@@ -1026,7 +1026,7 @@ ${ctaBand('', 'Ready to be the next one?')}
 
 page({
   file: 'testimonials.html', active: 'testimonials',
-  title: 'Testimonials | Mary Adepoju, AI Video Creator',
+  title: `Testimonials | ${D.profile.name} AI Video Creator`,
   description: 'Client feedback on AI video production, creative direction, communication and delivery.',
   body: testimonials
 });
@@ -1143,8 +1143,8 @@ ${pageHead({
 
 page({
   file: 'contact.html', active: 'contact',
-  title: 'Contact | Mary Adepoju, AI Video Creator & Video Editor',
-  description: 'Start an AI video project — project enquiry form, WhatsApp, email and discovery call booking with Mary Adepoju.',
+  title: `Contact | ${D.profile.name} AI Video Creator & Video Editor`,
+  description: `Start an AI video project — project enquiry form, WhatsApp, email and discovery call booking with ${D.profile.name}`,
   body: contact
 });
 
@@ -1162,7 +1162,7 @@ ${pageHead({
   <div class="wrap">
     ${P.calendly
       ? `<div class="cal-wrap reveal" id="cal-wrap" data-cal="${attr(P.calendly)}">
-           <iframe id="cal-frame" src="${attr(P.calendly + '?hide_gdpr_banner=1&background_color=131519&text_color=f3f0e8&primary_color=2f6bff')}" title="Book a discovery call with Mary Adepoju" style="width:100%;height:min(78vh,820px);border:0" loading="lazy"></iframe>
+           <iframe id="cal-frame" src="${attr(P.calendly + '?hide_gdpr_banner=1&background_color=131519&text_color=f3f0e8&primary_color=2f6bff')}" title="Book a discovery call with ${attr(P.name)}" style="width:100%;height:min(78vh,820px);border:0" loading="lazy"></iframe>
            <div class="cal-fallback" id="cal-fallback" hidden>
              <p class="eyebrow">Discovery call &middot; 30 minutes</p>
              <h3>The calendar opens in a new tab</h3>
@@ -1222,8 +1222,8 @@ ${pageHead({
 
 page({
   file: 'booking.html', active: 'contact',
-  title: 'Book a Discovery Call | Mary Adepoju',
-  description: 'Book a discovery call with Mary Adepoju to plan your AI video project — goals, format, scope and timeline.',
+  title: `Book a Discovery Call | ${D.profile.name}`,
+  description: `Book a discovery call with ${D.profile.name} to plan your AI video project — goals, format, scope and timeline.`,
   body: booking
 });
 

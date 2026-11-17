@@ -1,4 +1,4 @@
-/* Mary Adepoju — shared site behaviour */
+/* Mary A. — shared site behaviour */
 (function () {
   'use strict';
 
