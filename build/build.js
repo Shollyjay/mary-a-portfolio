@@ -248,7 +248,7 @@ function footer(b) {
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>Mary Adepoju<span style="color:var(--gold)">.</span></h3>
-        <p>${esc(P.title)}. ${esc(P.location)} &middot; Creative work, worldwide.</p>
+        <p>${esc(P.title)}${P.location ? '. ' + esc(P.location) : ''} &middot; Creative work, worldwide.</p>
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
@@ -567,7 +567,7 @@ const home = `
         <p class="lede lede--flush">${esc(P.intro)}</p>
         <div class="meta-row">
           <div><span>Experience</span><b>${esc(P.experienceYears)} Years</b></div>
-          <div><span>Based in</span><b>${esc(P.location)}</b></div>
+          ${P.location ? `<div><span>Based in</span><b>${esc(P.location)}</b></div>` : ''}
         </div>
         <div class="hero-actions">
           <a class="btn btn--ghost" href="about.html">More About Me ${ARROW}</a>
@@ -655,7 +655,7 @@ ${pageHead({
           <div><dt>Name</dt><dd>${esc(P.name)}</dd></div>
           <div><dt>Title</dt><dd>${esc(P.title)}</dd></div>
           <div><dt>Experience</dt><dd>${esc(P.experienceYears)} years</dd></div>
-          <div><dt>Location</dt><dd>${esc(P.location)}</dd></div>
+          ${P.location ? `<div><dt>Location</dt><dd>${esc(P.location)}</dd></div>` : ''}
         </dl>
         <div class="hero-actions">
           ${resumeBtn("Download My Resume")}
@@ -1117,7 +1117,7 @@ ${pageHead({
         <span class="section-label">Direct contact</span>
         <div class="contact-line"><span>Email</span><a href="mailto:${attr(P.email)}">${esc(P.email)}</a></div>
         <div class="contact-line"><span>WhatsApp</span><a href="${attr(P.whatsappLink)}" target="_blank" rel="noopener">${esc(P.whatsapp)}</a></div>
-        <div class="contact-line"><span>Based in</span><a href="about.html">${esc(P.location)}</a></div>
+        ${P.location ? `<div class="contact-line"><span>Based in</span><a href="about.html">${esc(P.location)}</a></div>` : ''}
         <div style="display:grid;gap:.75rem;margin-top:2rem">
           <a class="btn btn--primary btn--block" href="${attr(P.whatsappLink)}" target="_blank" rel="noopener">Message on WhatsApp ${ARROW}</a>
           <a class="btn btn--ghost btn--block" href="booking.html">Book a Discovery Call ${ARROW}</a>
@@ -1174,7 +1174,7 @@ ${pageHead({
            <a class="btn btn--ghost" href="${attr(P.calendly)}" target="_blank" rel="noopener">Open The Booking Page ${ARROW}</a>
            <a class="btn btn--ghost" href="${attr(P.whatsappLink)}" target="_blank" rel="noopener">Message On WhatsApp ${ARROW}</a>
          </div>
-         <p class="form-note reveal" style="margin-top:1rem">Times are shown in your own timezone. Mary works from ${esc(P.location)} (Africa/Lagos).</p>
+         <p class="form-note reveal" style="margin-top:1rem">Times are shown in your own timezone.</p>
          <div class="grid grid-2 reveal" style="margin-top:3.5rem;align-items:start">
            <div>
              <span class="section-label">What we cover</span>
@@ -1195,7 +1195,7 @@ ${pageHead({
          </div>`
       : `<div class="notice reveal" style="max-width:70ch">
            <h3>Booking link not connected yet</h3>
-           <p>The Calendly scheduling page is not connected. Add the Calendly link to <code>profile.calendly</code> in <code>content/site.json</code> and the live booking calendar will be embedded here, in Africa/Lagos time. Connecting Calendly to the Google Calendar on ${esc(P.email)} &mdash; which is what prevents double bookings &mdash; is done inside Calendly with its own authorization step.</p>
+           <p>The Calendly scheduling page is not connected. Add the Calendly link to <code>profile.calendly</code> in <code>content/site.json</code> and the live booking calendar will be embedded here. Connecting Calendly to the Google Calendar on ${esc(P.email)} &mdash; which is what prevents double bookings &mdash; is done inside Calendly with its own authorization step.</p>
          </div>
          <div class="grid grid-2 reveal" style="margin-top:3rem;align-items:start">
            <div>
